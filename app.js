@@ -2,14 +2,14 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
-const { authConfig, checkJwt } = require("./auth");
 const { ValidationError } = require("sequelize");
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
-const postRouter = require("./routes/post");
-const commentRouter = require("./routes/comment");
-const likeRouter = require("./routes/like");
-const followRouter = require("./routes/follow");
+const categoryRouter = require("./routes/category");
+const productListRouter = require("./routes/productList");
+const productRouter = require("./routes/product");
+const orderRouter = require("./routes/order");
+const itemOfOrderRouter = require("./routes/itemsOfOder");
 
 const { environment } = require("./config");
 
@@ -17,23 +17,16 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(express.json());
-// app.use(cors());
 app.use(cors({ origin: "*" }));
-// allows app to read file from uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use("/", indexRouter);
 app.use("/users", userRouter);
-app.use("/posts", postRouter);
-app.use("/comments", commentRouter);
-app.use("/likes", likeRouter);
-app.use("/follow", followRouter);
-app.get("/api/external", checkJwt, (req, res) => {
-	res.send({
-		msg: "Your Access Token was successfully validated!",
-	});
-});
-// allows app to read file from uploads directory
-// Catch unhandled requests and forward to error handler.
+app.use("/category", categoryRouter);
+app.use("/productlist", productListRouter);
+app.use("/products", productRouter);
+app.use("/orders", orderRouter);
+app.use("/items", itemOfOrderRouter);
+
 app.use((req, res, next) => {
 	const err = new Error("The requested resource couldn't be found.");
 	err.errors = ["The requested resource couldn't be found."];
@@ -41,16 +34,13 @@ app.use((req, res, next) => {
 	next(err);
 });
 
-// Process sequelize errors
 app.use((err, req, res, next) => {
-	// check if error is a Sequelize error:
 	if (err instanceof ValidationError) {
 		err.errors = err.errors.map((e) => e.message);
 		err.title = "Sequelize Error";
 	}
 	next(err);
 });
-// Generic error handler.
 app.use((err, req, res, next) => {
 	console.log(err);
 	res.status(err.status || 500);
