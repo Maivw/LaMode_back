@@ -6,7 +6,8 @@ module.exports = {
 			{
 				email: "DemoUser@demo.com",
 				username: "DemoUser",
-				password: "password",
+				password:
+					"$2a$10$HK/LmoLuyI0cikqNyYMST.sJesu8KyQrt.50D1sN9Bo6lpw6Nz.XK",
 				firstName: "Demo",
 				lastName: "User",
 				phoneNum: "1111111111",

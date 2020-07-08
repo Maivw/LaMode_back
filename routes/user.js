@@ -34,17 +34,18 @@ const validateLoginInfo = [
 
 router.get(
 	"/:id",
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const userId = parseInt(req.params.id, 10);
 		console.log("userId", userId);
 
-		// if (!req.user || req.user.id !== userId) {
-		// 	const err = new Error("Unauthorized");
-		// 	err.status = 401;
-		// 	err.message = "You do not have permission(s) to do that.";
-		// 	err.title = "Unauthorized";
-		// 	throw err;
-		// }
+		if (!req.user || req.user.id !== userId) {
+			const err = new Error("Unauthorized");
+			err.status = 401;
+			err.message = "You do not have permission(s) to do that.";
+			err.title = "Unauthorized";
+			throw err;
+		}
 
 		const user = await User.findByPk(userId, {
 			attributes: {
@@ -97,11 +98,12 @@ router.post(
 			phoneNum,
 		} = req.body;
 		const hashedPassword = await bcrypt.hash(password, 10);
+		console.log("hassshhh", hashedPassword);
 
 		const user = await User.create({
 			email,
-			username,
-			hashedPassword,
+			username: username,
+			password: hashedPassword,
 			firstName,
 			lastName,
 			phoneNum,
@@ -117,14 +119,16 @@ router.post(
 );
 
 router.post(
-	"/token",
+	"/login",
 	asyncHandler(async (req, res, next) => {
 		const { email, password } = req.body;
 		const user = await User.findOne({
 			where: { email },
 		});
+		console.log("user", user);
+		console.log("user.password", user.password);
 
-		if (!user || !validatePassword(password, user.hashedPassword)) {
+		if (!user || !validatePassword(password, user.password)) {
 			const err = new Error("Failed to log in.");
 			err.errors = ["The provided credentials were invalid"];
 			err.status = 401;
