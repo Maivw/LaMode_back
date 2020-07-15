@@ -8,11 +8,13 @@ module.exports = (sequelize, DataTypes) => {
 			price: DataTypes.INTEGER,
 			productCode: DataTypes.STRING,
 			description: DataTypes.STRING,
-			size: DataTypes.STRING,
+			availableSize: DataTypes.ARRAY(DataTypes.STRING),
 			photo: DataTypes.STRING,
 			productListId: DataTypes.INTEGER,
 			volume: DataTypes.INTEGER,
 			promotion: DataTypes.STRING,
+			category: DataTypes.STRING,
+			isFreeShipping: DataTypes.BOOLEAN,
 		},
 		{}
 	);

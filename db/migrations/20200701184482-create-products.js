@@ -30,8 +30,8 @@ module.exports = {
 				type: Sequelize.TEXT(500),
 				allowNull: false,
 			},
-			size: {
-				type: Sequelize.STRING,
+			availableSize: {
+				type: Sequelize.ARRAY(Sequelize.STRING),
 				allowNull: false,
 			},
 			photo: {
@@ -53,6 +53,14 @@ module.exports = {
 			promotion: {
 				allowNull: false,
 				type: Sequelize.STRING,
+			},
+			category: {
+				allowNull: false,
+				type: Sequelize.STRING,
+			},
+			isFreeShipping: {
+				allowNull: false,
+				type: Sequelize.BOOLEAN,
 			},
 			createdAt: {
 				allowNull: false,

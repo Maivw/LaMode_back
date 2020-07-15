@@ -48,10 +48,28 @@ router.get(
 	"/promotion/:promotion",
 	asyncHandler(async (req, res, next) => {
 		const { promotion } = req.params;
-		console.log("promotion", promotion);
+
 		const products = await Product.findAll({
 			where: {
-				// id: req.params.id,
+				promotion: promotion,
+			},
+			include: [ProductList],
+		});
+		if (products) {
+			res.json({ products });
+		} else {
+			next(productNotFoundError(req.params.id));
+		}
+	})
+);
+router.get(
+	"/promotion/:category/:promotion",
+	asyncHandler(async (req, res, next) => {
+		const { promotion, category } = req.params;
+
+		const products = await Product.findAll({
+			where: {
+				category,
 				promotion: promotion,
 			},
 			include: [ProductList],
