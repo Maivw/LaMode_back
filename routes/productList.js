@@ -10,7 +10,6 @@ router.get(
 	asyncHandler(async (req, res) => {
 		const { productListName } = req.params;
 		const productList = await ProductList.findAll({
-			order: [["productListName"]],
 			include: [Category, Product],
 			where: { productListName },
 		});

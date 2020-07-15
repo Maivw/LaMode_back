@@ -34,7 +34,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				productListName: "shorts",
+				productListName: "bottoms",
 				categoryId: 2,
 				createdAt: new Date(),
 				updatedAt: new Date(),
@@ -52,7 +52,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				productListName: "skirts",
+				productListName: "swearshirt",
 				categoryId: 3,
 				createdAt: new Date(),
 				updatedAt: new Date(),
