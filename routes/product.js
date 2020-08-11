@@ -43,7 +43,6 @@ router.get(
 		}
 	})
 );
-// localhost: 808/promotion?promotion=20%
 router.get(
 	"/promotion/:promotion",
 	asyncHandler(async (req, res, next) => {
