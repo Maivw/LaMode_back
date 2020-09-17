@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
+const paypal = require("paypal-rest-sdk");
 const { ValidationError } = require("sequelize");
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
@@ -10,6 +11,15 @@ const productListRouter = require("./routes/productList");
 const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
 const itemOfOrderRouter = require("./routes/itemsOfOder");
+const paymentRouter = require("./routes/payment");
+
+paypal.configure({
+	mode: "sandbox",
+	client_id:
+		"AbsLL0PJYBM_PKQP0PCjGSDpkcU6r-zz2l-jvVhEt3zmtGa8FHoe_IpBj_rPgtkYE431GewAo96itzsF",
+	client_secret:
+		"EOrUdAcIkmni65gMSPMJRq1SxXVZSzyIDNNtd9e8_S0m5yqeWpOblfzCOytJxyTvKqNTgzkuDtnujdbs",
+});
 
 const { environment } = require("./config");
 
@@ -26,6 +36,7 @@ app.use("/productlist", productListRouter);
 app.use("/products", productRouter);
 app.use("/orders", orderRouter);
 app.use("/items", itemOfOrderRouter);
+app.use("/payment", paymentRouter);
 
 app.use((req, res, next) => {
 	const err = new Error("The requested resource couldn't be found.");
