@@ -12,7 +12,6 @@ const getUserToken = (user) => {
 		email: user.email,
 	};
 
-	// Create the token.
 	const token = jwt.sign({ data: userDataForToken }, secret, {
 		expiresIn: parseInt(expiresIn, 10),
 	});
@@ -30,6 +29,7 @@ const restoreUser = (req, res, next) => {
 	return jwt.verify(token, secret, null, async (err, jwtPayload) => {
 		if (err) {
 			err.status = 401;
+			console.log(err);
 			return next(err);
 		}
 

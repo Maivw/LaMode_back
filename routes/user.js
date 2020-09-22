@@ -37,7 +37,6 @@ router.get(
 	requireAuth,
 	asyncHandler(async (req, res) => {
 		const userId = parseInt(req.params.id, 10);
-		console.log("userId", userId);
 
 		if (!req.user || req.user.id !== userId) {
 			const err = new Error("Unauthorized");
@@ -98,7 +97,6 @@ router.post(
 			phoneNum,
 		} = req.body;
 		const hashedPassword = await bcrypt.hash(password, 10);
-		console.log("hassshhh", hashedPassword);
 
 		const user = await User.create({
 			email,
