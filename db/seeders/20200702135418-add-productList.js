@@ -16,13 +16,13 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				productListName: "shirts",
+				productListName: "tops",
 				categoryId: 1,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
 			{
-				productListName: "lingerie",
+				productListName: "sleep",
 				categoryId: 1,
 				createdAt: new Date(),
 				updatedAt: new Date(),

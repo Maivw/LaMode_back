@@ -14,7 +14,7 @@ module.exports = {
 				unique: true,
 			},
 			color: {
-				type: Sequelize.STRING(32),
+				type: Sequelize.STRING(100),
 				allowNull: false,
 			},
 			price: {
@@ -22,12 +22,12 @@ module.exports = {
 				allowNull: false,
 			},
 			productCode: {
-				type: Sequelize.STRING(32),
+				type: Sequelize.STRING(100),
 				allowNull: false,
 				unique: true,
 			},
 			description: {
-				type: Sequelize.TEXT(500),
+				type: Sequelize.TEXT(1000),
 				allowNull: false,
 			},
 			availableSize: {
